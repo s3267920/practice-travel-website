@@ -1,0 +1,107 @@
+@import '_reset.scss';
+@import '_style.scss';
+
+body {
+  max-width: 1024px;
+  margin: 0 auto;
+  a {
+    text-decoration: none;
+  }
+}
+header {
+  width: 100%;
+  position: relative;
+  .nav_menu {
+    width: 100%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: opacity 0.5s, height 0.5s linear;
+    ul {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-direction: row;
+      position: absolute;
+      opacity: 0;
+      li {
+        // width: widthPresent(100);
+        margin-right: 40px;
+        padding-bottom: 15px;
+        a {
+          color: color(darkblue);
+          font-size: nth($font, 4);
+          font-weight: bold;
+        }
+        &:hover {
+          border-bottom: 5px solid darkblue;
+        }
+      }
+    }
+    &:hover {
+      height: 70px;
+      opacity: 1;
+      ul {
+        opacity: 1;
+      }
+    }
+  }
+  .banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 380px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url(../img/the-urban-landscape-1698285.png);
+    .title {
+      color: color(white);
+      font-size: 40px;
+      margin-bottom: 96px;
+      margin-top: 89px;
+    }
+    .banner_select {
+      width: widthPresent(452);
+      position: relative;
+      min-width: 300px;
+      select {
+        font-weight: bold;
+        width: 100%;
+        height: 48px;
+        font-size: nth($font, 3);
+        appearance: none;
+        padding-left: 10px;
+        background-color: rgba(255, 255, 255, 0.7);
+        border: 3px solid color(white);
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      span {
+        position: absolute;
+        right: 17px;
+        width: 16px;
+        height: 11px;
+        background-image: url(../img/icons_down.png);
+        top: 20px;
+      }
+    }
+  }
+}
+
+footer {
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: color(blue);
+  color: color(white);
+  p {
+    margin-bottom: 15px;
+    font-size: nth($font, 1);
+  }
+}

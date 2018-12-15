@@ -1,0 +1,47 @@
+//color
+
+$color: (
+  red: #d0021b,
+  yellow: #f5d005,
+  pink: #ffa782,
+  skyblue: #559ac8,
+  purple: #8a82cc,
+  gray: #9b9b9b,
+  white: #fff,
+  black: #000,
+  opacityWhite: rgba(255, 255, 255, 0.5),
+  darkblue: darkblue,
+  blue: rgb(44, 88, 182)
+);
+
+$font: 14px 16px 18px 20px 24px;
+$maxWidth: 1024;
+//RWD
+
+$wide: 'min-width: 1800px' !default;
+$desktop: 'min-width: 1200px' !default;
+$tablet-landscape: 'min-width: 900px' !default;
+$tablet-protrait: 'min-width: 600px' !default;
+$phone: 'max-width: 600px' !default;
+
+@mixin backgroundImg($url) {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url($url);
+}
+
+@mixin media($query: $phone) {
+  @media screen and ($query) {
+    @content;
+  }
+}
+
+@function color($type: green) {
+  @return map-get($color, $type);
+}
+
+@function widthPresent($width) {
+  //保留小數後兩位
+  @return round($width/$maxWidth * 10000) / 100 * 1%;
+}

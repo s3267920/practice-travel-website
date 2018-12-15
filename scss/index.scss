@@ -1,0 +1,107 @@
+@import '_layout.scss';
+@import '_style.scss';
+
+#main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  .popular_zone {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: -30px;
+    width: widthPresent(800);
+    height: 112px;
+    background-color: color(white);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    h3 {
+      font-size: nth($font, 3);
+      margin-left: 26px;
+      margin-bottom: 15px;
+    }
+    ul {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin: 0 15px;
+      li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 130px;
+        height: 42px;
+        color: color(white);
+        font-size: nth($font, 4);
+        border-radius: 5px;
+      }
+    }
+  }
+  .separation_line {
+    margin-top: 121px;
+    margin-bottom: 65px;
+    width: widthPresent(900);
+    height: 1px;
+    border-top: 2px dashed transparent;
+    background: linear-gradient(white, white) padding-box,
+      repeating-linear-gradient(-45deg, color(skyblue) 0, color(skyblue) 2.5px, white 0, white 8px);
+    position: relative;
+    span {
+      box-sizing: border-box;
+      position: absolute;
+      left: 48.57%;
+      top: -13px;
+      width: 24px;
+      height: 24px;
+      border: 2px solid color(skyblue);
+      border-radius: 50%;
+      background-color: #fff;
+      i {
+        position: absolute;
+        left: 3px;
+        top: 7px;
+        border-top: 8px solid color(skyblue);
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        border-radius: 2px;
+      }
+    }
+  }
+  .content {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h2 {
+      color: color(skyblue);
+      font-size: 36px;
+    }
+    .content_card {
+      // margin: 0 widthPresent(32);
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      margin-top: 8px;
+      box-sizing: border-box;
+      > li {
+        width: widthPresent(464);
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 16px 8px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
