@@ -82,8 +82,7 @@
       color: color(skyblue);
       font-size: 36px;
     }
-    .content_card {
-      // margin: 0 widthPresent(32);
+    .content_list {
       width: 100%;
       display: flex;
       flex-direction: row;
@@ -94,6 +93,7 @@
       box-sizing: border-box;
       > li {
         width: widthPresent(464);
+        position: relative;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
@@ -101,6 +101,126 @@
         align-items: center;
         margin: 16px 8px;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+      }
+      .picture {
+        width: 100%;
+        height: 155px;
+        color: color(white);
+        position: relative;
+        overflow: hidden;
+        img {
+          position: absolute;
+          width: 100%;
+          text-align: center;
+          top: -50%;
+        }
+        .name,
+        .zone {
+          position: absolute;
+        }
+        .name {
+          font-size: nth($font, 4);
+          bottom: 14px;
+          left: 22px;
+        }
+        .zone {
+          font-size: nth($font, 2);
+          right: 24px;
+          bottom: 11px;
+        }
+      }
+      .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        margin: 0 auto 22px 23px;
+        li {
+          display: flex;
+
+          align-items: center;
+
+          margin-top: 16px;
+          img {
+            margin-right: 9px;
+          }
+        }
+      }
+      .ticket_info {
+        width: 92px;
+        position: absolute;
+        bottom: 20px;
+        right: 24px;
+        img {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+  .page {
+    margin-top: 30px;
+    margin-bottom: 40px;
+    ul {
+      display: flex;
+      li {
+        display: flex;
+        margin-right: 4px;
+      }
+      a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        line-height: 24px;
+        height: 24px;
+        font-size: nth($font, 2);
+        padding: 5px 10px;
+        color: color(skyblue);
+        //:not() => 只有在沒有 disable_touch 的 className 下才會生效
+        &:not(.disable_touch):hover {
+          background-color: color(skyblue);
+          color: color(white);
+          border-radius: 5px;
+          .triangle_left {
+            border-top: 1.5px solid color(white);
+            border-left: 1.5px solid color(white);
+          }
+          .triangle_right {
+            border-top: 1.5px solid color(white);
+            border-right: 1.5px solid color(white);
+          }
+        }
+      }
+      .triangle_left {
+        width: 4px;
+        height: 4px;
+        border-right: 1px solid transparent;
+        border-top: 1.5px solid color(skyblue);
+        border-bottom: 1px solid transparent;
+        border-left: 1.5px solid color(skyblue);
+        transform: rotate(-45deg);
+        margin-right: 5px;
+      }
+      .triangle_right {
+        width: 4px;
+        height: 4px;
+        border-left: 1px solid transparent;
+        border-top: 1.5px solid color(skyblue);
+        border-bottom: 1px solid transparent;
+        border-right: 1.5px solid color(skyblue);
+        transform: rotate(45deg);
+        margin-left: 5px;
+      }
+      .disable_touch {
+        color: color(gray);
+        cursor: default;
+        .triangle_left {
+          border-top: 1.5px solid color(gray);
+          border-left: 1.5px solid color(gray);
+        }
+        .triangle_right {
+          border-top: 1.5px solid color(gray);
+          border-right: 1.5px solid color(gray);
+        }
       }
     }
   }

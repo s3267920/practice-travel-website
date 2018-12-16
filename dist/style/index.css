@@ -752,7 +752,7 @@ footer p {
   font-size: 36px;
 }
 
-#main .content .content_card {
+#main .content .content_list {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -774,8 +774,9 @@ footer p {
           box-sizing: border-box;
 }
 
-#main .content .content_card > li {
+#main .content .content_list > li {
   width: 45.31%;
+  position: relative;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   display: -webkit-box;
@@ -794,5 +795,166 @@ footer p {
   margin: 16px 8px;
   -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+#main .content .content_list .picture {
+  width: 100%;
+  height: 155px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+#main .content .content_list .picture img {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: -50%;
+}
+
+#main .content .content_list .picture .name,
+#main .content .content_list .picture .zone {
+  position: absolute;
+}
+
+#main .content .content_list .picture .name {
+  font-size: 20px;
+  bottom: 14px;
+  left: 22px;
+}
+
+#main .content .content_list .picture .zone {
+  font-size: 16px;
+  right: 24px;
+  bottom: 11px;
+}
+
+#main .content .content_list .info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  margin: 0 auto 22px 23px;
+}
+
+#main .content .content_list .info li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 16px;
+}
+
+#main .content .content_list .info li img {
+  margin-right: 9px;
+}
+
+#main .content .content_list .ticket_info {
+  width: 92px;
+  position: absolute;
+  bottom: 20px;
+  right: 24px;
+}
+
+#main .content .content_list .ticket_info img {
+  margin-right: 8px;
+}
+
+#main .page {
+  margin-top: 30px;
+  margin-bottom: 40px;
+}
+
+#main .page ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#main .page ul li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-right: 4px;
+}
+
+#main .page ul a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  line-height: 24px;
+  height: 24px;
+  font-size: 16px;
+  padding: 5px 10px;
+  color: #559ac8;
+}
+
+#main .page ul a:not(.disable_touch):hover {
+  background-color: #559ac8;
+  color: #fff;
+  border-radius: 5px;
+}
+
+#main .page ul a:not(.disable_touch):hover .triangle_left {
+  border-top: 1.5px solid #fff;
+  border-left: 1.5px solid #fff;
+}
+
+#main .page ul a:not(.disable_touch):hover .triangle_right {
+  border-top: 1.5px solid #fff;
+  border-right: 1.5px solid #fff;
+}
+
+#main .page ul .triangle_left {
+  width: 4px;
+  height: 4px;
+  border-right: 1px solid transparent;
+  border-top: 1.5px solid #559ac8;
+  border-bottom: 1px solid transparent;
+  border-left: 1.5px solid #559ac8;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  margin-right: 5px;
+}
+
+#main .page ul .triangle_right {
+  width: 4px;
+  height: 4px;
+  border-left: 1px solid transparent;
+  border-top: 1.5px solid #559ac8;
+  border-bottom: 1px solid transparent;
+  border-right: 1.5px solid #559ac8;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  margin-left: 5px;
+}
+
+#main .page ul .disable_touch {
+  color: #9b9b9b;
+  cursor: default;
+}
+
+#main .page ul .disable_touch .triangle_left {
+  border-top: 1.5px solid #9b9b9b;
+  border-left: 1.5px solid #9b9b9b;
+}
+
+#main .page ul .disable_touch .triangle_right {
+  border-top: 1.5px solid #9b9b9b;
+  border-right: 1.5px solid #9b9b9b;
 }
 /*# sourceMappingURL=index.css.map */
