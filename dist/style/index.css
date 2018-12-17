@@ -471,6 +471,7 @@ template {
 
 body {
   max-width: 1024px;
+  min-width: 425px;
   margin: 0 auto;
 }
 
@@ -597,6 +598,12 @@ header .banner .banner_select span {
   top: 20px;
 }
 
+@media screen and (max-width: 600px) {
+  header .banner .banner_select {
+    width: 60%;
+  }
+}
+
 footer {
   height: 90px;
   display: -webkit-box;
@@ -694,6 +701,16 @@ footer p {
   color: #fff;
   font-size: 20px;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  #main .popular_zone {
+    width: 100%;
+  }
+  #main .popular_zone ul {
+    margin: 0;
+  }
 }
 
 #main .separation_line {
@@ -777,6 +794,7 @@ footer p {
 #main .content .content_list > li {
   width: 45.31%;
   position: relative;
+  height: 273px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   display: -webkit-box;
@@ -800,7 +818,7 @@ footer p {
 #main .content .content_list .picture {
   width: 100%;
   height: 155px;
-  color: #fff;
+  color: #ebebeb;
   position: relative;
   overflow: hidden;
 }
@@ -868,6 +886,12 @@ footer p {
   margin-right: 8px;
 }
 
+@media screen and (max-width: 600px) {
+  #main .content .content_list li {
+    width: 100%;
+  }
+}
+
 #main .page {
   margin-top: 30px;
   margin-bottom: 40px;
@@ -919,6 +943,12 @@ footer p {
   border-right: 1.5px solid #fff;
 }
 
+@media screen and (max-width: 600px) {
+  #main .page ul a {
+    font-size: 20px;
+  }
+}
+
 #main .page ul .triangle_left {
   width: 4px;
   height: 4px;
@@ -944,6 +974,7 @@ footer p {
 }
 
 #main .page ul .disable_touch {
+  pointer-events: none;
   color: #9b9b9b;
   cursor: default;
 }

@@ -3,6 +3,7 @@
 
 body {
   max-width: 1024px;
+  min-width: 425px;
   margin: 0 auto;
   a {
     text-decoration: none;
@@ -87,6 +88,9 @@ header {
         height: 11px;
         background-image: url(../img/icons_down.png);
         top: 20px;
+      }
+      @include media() {
+        width: 60%;
       }
     }
   }
