@@ -977,6 +977,7 @@ footer p {
   pointer-events: none;
   color: #9b9b9b;
   cursor: default;
+  text-decoration: underline;
 }
 
 #main .page ul .disable_touch .triangle_left {
