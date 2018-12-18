@@ -604,6 +604,12 @@ header .banner .banner_select span {
   }
 }
 
+header .banner .text_filter {
+  margin-bottom: 30px;
+  width: 39.06%;
+  min-width: 300px;
+}
+
 footer {
   height: 90px;
   display: -webkit-box;

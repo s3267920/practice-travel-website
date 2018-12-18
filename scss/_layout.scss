@@ -93,6 +93,11 @@ header {
         width: 60%;
       }
     }
+    .text_filter {
+      margin-bottom: 30px;
+      width: widthPresent(400);
+      min-width: 300px;
+    }
   }
 }
 
