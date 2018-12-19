@@ -5,6 +5,8 @@ $color: (
   yellow: #f5d005,
   pink: #ffa782,
   skyblue: #559ac8,
+  green: rgb(0, 210, 120),
+  blue: rgb(44, 88, 182),
   lightgray: #ebebeb,
   purple: #8a82cc,
   gray: #9b9b9b,
@@ -12,9 +14,16 @@ $color: (
   black: #000,
   opacityWhite: rgba(255, 255, 255, 0.5),
   darkblue: darkblue,
-  blue: rgb(44, 88, 182)
+  darkgreen: darkgreen
 );
-
+$aqiColor: (
+  good: #00e400,
+  moderate: #ffff00,
+  unhealthyFS: #ff7e00,
+  unhealthy: #ff0000,
+  veryUnhealthy: rgb(143, 63, 151),
+  hazardous: #7e0023
+);
 $font: 14px 16px 18px 20px 24px;
 $maxWidth: 1024;
 //RWD
@@ -40,6 +49,10 @@ $phone: 'max-width: 600px' !default;
 
 @function color($type: green) {
   @return map-get($color, $type);
+}
+
+@function AQIColor($type: good) {
+  @return map-get($aqiColor, $type);
 }
 
 @function widthPresent($width) {
