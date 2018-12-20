@@ -10,6 +10,8 @@
     getXhr.onload = function() {
       let res = getXhr.response.result.records;
       ajaxToLocalStorage(res);
+      createZone(res);
+      filterZone(res);
     };
     //https://data.kcg.gov.tw/api/action/datastore_search?resource_id=92290ee5-6e61-456f-80c0-249eae2fcc97&limit=268
   }
@@ -19,7 +21,7 @@
     localStorage.setItem('resItem', resStr);
   }
   //將數據存在data中
-  let data = JSON.parse(localStorage.getItem('resItem'));
+  let data = JSON.parse(localStorage.getItem('resItem')) || [];
 
   function selectOption(zone) {
     let zoneSelect = document.querySelector('#zone_select');

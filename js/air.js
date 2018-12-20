@@ -16,11 +16,14 @@
     dataType: 'jsonp'
   }).done(function(res) {
     getCity(res);
+    //先取Ajax的值，再取存進localStorage的值
     filterData(res);
+    let resToObj = JSON.stringify(res);
+    localStorage.setItem('data', resToObj);
   });
   let attentionCityZone = JSON.parse(localStorage.getItem('zone')) || [];
   let attentionCityData = JSON.parse(localStorage.getItem('attentionData')) || [];
-
+  let AjaxData = JSON.parse(localStorage.getItem('data')) || [];
   function filterData(res) {
     let contentList = document.querySelector('#contentList');
     let citySelect = document.querySelector('#city_select');
@@ -39,24 +42,63 @@
       createCard(newData);
     });
     contentList.addEventListener('click', function(e) {
+      //點中星星icon（即svg 跟 path)
       if (e.target.nodeName === 'svg') {
         let zone = e.target.parentNode.parentNode.children[1].children[1].textContent;
-        e.target.parentNode.children[0].dataset.prefix === 'far'
-          ? ((e.target.parentNode.children[0].dataset.prefix = 'fas'), addToAttention(zone))
-          : (e.target.parentNode.children[0].dataset.prefix = 'far');
+        if (e.target.parentNode.children[0].dataset.prefix === 'far') {
+          addToAttention(zone);
+        }
       } else if (e.target.nodeName === 'path') {
         let zone = e.target.parentNode.parentNode.parentNode.children[1].children[1].textContent;
-        e.target.parentNode.parentNode.children[0].dataset.prefix === 'far'
-          ? ((e.target.parentNode.parentNode.children[0].dataset.prefix = 'fas'), addToAttention(zone))
-          : (e.target.parentNode.parentNode.children[0].dataset.prefix = 'far');
+        if (e.target.parentNode.parentNode.children[0].dataset.prefix === 'far') {
+          addToAttention(zone);
+        }
+      }
+    });
+    let attentionList = document.querySelector('#attentionList');
+    attentionList.addEventListener('click', function(e) {
+      if (e.target.nodeName === 'svg') {
+        let zone = e.target.parentNode.parentNode.children[1].children[1].textContent;
+        deleteAttention(zone);
+      } else if (e.target.nodeName === 'path') {
+        let zone = e.target.parentNode.parentNode.parentNode.children[1].children[1].textContent;
+        deleteAttention(zone);
       }
     });
 
     function addToAttention(zone) {
-      attentionCityZone.push(zone);
+      /*
+      判斷 attentionCityZone 跟 attentionCityData裡面有沒有資料，沒有的話再加入 
+      使用some函數來判斷條件是否成立//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+      */
+      if (!attentionCityZone.length) {
+        attentionCityZone.push(zone);
+      } else {
+        let isRepeat = function(el) {
+          return el === zone;
+        };
+        let check = attentionCityZone.some(isRepeat);
+        if (check) {
+          return;
+        } else {
+          attentionCityZone.push(zone);
+        }
+      }
       res.forEach(data => {
         if (data.SiteName === zone) {
-          attentionCityData.push(data);
+          if (!attentionCityData.length) {
+            attentionCityData.push(data);
+          } else {
+            let isRepeat = function(el) {
+              return el.SiteName === zone;
+            };
+            let check = attentionCityData.some(isRepeat);
+            if (check) {
+              return;
+            } else {
+              attentionCityData.push(data);
+            }
+          }
         }
       });
       createAttention(attentionCityData);
@@ -65,7 +107,23 @@
       localStorage.setItem('attentionData', store);
       localStorage.setItem('zone', zoneStore);
     }
-    function deleteAttention()
+    function deleteAttention(zone) {
+      attentionCityZone.forEach((el, index) => {
+        if (el === zone) {
+          attentionCityZone.splice(index, 1);
+        }
+      });
+      attentionCityData.forEach((data, index) => {
+        if (data.SiteName === zone) {
+          attentionCityData.splice(index, 1);
+        }
+      });
+      createAttention(attentionCityData);
+      let zoneStore = JSON.stringify(attentionCityZone);
+      let store = JSON.stringify(attentionCityData);
+      localStorage.setItem('attentionData', store);
+      localStorage.setItem('zone', zoneStore);
+    }
     function createAttention(storageData) {
       let attentionList = document.querySelector('#attentionList');
       let newLi = '';
@@ -158,4 +216,5 @@
     //   color = '#ff7e00';
     // }
   }
+  filterData(AjaxData);
 })();
