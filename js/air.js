@@ -8,26 +8,28 @@
   // getHtml.onload = function() {
   //   console.log(getHtml.response);
   // };
-  let url = 'https://opendata.epa.gov.tw/ws/Data/AQI/?$format=json';
-  $.ajax({
-    url: url,
-    contentType: 'application/json',
-    method: 'GET',
-    dataType: 'jsonp'
-  }).done(function(res) {
-    getCity(res);
-    //先取Ajax的值，再取存進localStorage的值
-    filterData(res);
-    let resToObj = JSON.stringify(res);
-    localStorage.setItem('data', resToObj);
-  });
+  function getAjax() {
+    let url = 'https://opendata.epa.gov.tw/ws/Data/AQI/?$format=json';
+    $.ajax({
+      url: url,
+      contentType: 'application/json',
+      method: 'GET',
+      dataType: 'jsonp'
+    }).done(function(res) {
+      getCity(res);
+      console.log(res);
+      //先取Ajax的值，再取存進localStorage的值
+      filterData(res);
+      let resToObj = JSON.stringify(res);
+      localStorage.setItem('data', resToObj);
+    });
+  }
+  getAjax();
   let attentionCityZone = JSON.parse(localStorage.getItem('zone')) || [];
   let attentionCityData = JSON.parse(localStorage.getItem('attentionData')) || [];
-  let AjaxData = JSON.parse(localStorage.getItem('data')) || [];
   function filterData(res) {
     let contentList = document.querySelector('#contentList');
     let citySelect = document.querySelector('#city_select');
-
     if (citySelect.value === 'none') {
       createCard(res);
       createAttention(attentionCityData);
@@ -101,6 +103,7 @@
           }
         }
       });
+
       createAttention(attentionCityData);
       let zoneStore = JSON.stringify(attentionCityZone);
       let store = JSON.stringify(attentionCityData);
@@ -216,5 +219,4 @@
     //   color = '#ff7e00';
     // }
   }
-  filterData(AjaxData);
 })();
