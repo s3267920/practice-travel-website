@@ -1,29 +1,29 @@
 //https://opendata.epa.gov.tw/ws/Data/AQI/?$format=json
-(function() {
-  // let getHtml = new XMLHttpRequest();
-  // let url = 'http://opendata2.epa.gov.tw/AQI.json';
-  // getHtml.open('GET', url, true);
-  // getHtml.responseType = 'json';
-  // getHtml.send();
-  // getHtml.onload = function() {
-  //   console.log(getHtml.response);
-  // };
+(function () {
   let url = 'https://opendata.epa.gov.tw/ws/Data/AQI/?$format=json';
+  let attentionCityZone = JSON.parse(localStorage.getItem('zone')) || [];
+  let attentionCityData = [];
   $.ajax({
     url: url,
     contentType: 'application/json',
     method: 'GET',
     dataType: 'jsonp'
-  }).done(function(res) {
+  }).done(function (res) {
     getCity(res);
-    //先取Ajax的值，再取存進localStorage的值
+    //用不會變化的zone來做資料篩選，確保關注城市的部分資料都是最新的。
+    attentionCityZone.forEach(zone => {
+      res.filter(data => {
+        if (data.SiteName === zone) {
+          return attentionCityData.push(data);
+        }
+      })
+    });
     filterData(res);
     let resToObj = JSON.stringify(res);
     localStorage.setItem('data', resToObj);
+
   });
 
-  let attentionCityZone = JSON.parse(localStorage.getItem('zone')) || [];
-  let attentionCityData = JSON.parse(localStorage.getItem('attentionData')) || [];
   function filterData(res) {
     let contentList = document.querySelector('#contentList');
     let citySelect = document.querySelector('#city_select');
@@ -31,8 +31,8 @@
       createCard(res);
       createAttention(attentionCityData);
     }
-    citySelect.addEventListener('change', function(e) {
-      for (let i = 0; i < res.length; i++) {}
+    citySelect.addEventListener('change', function (e) {
+      for (let i = 0; i < res.length; i++) { }
       let newData = res.filter(el => {
         if (e.target.value === el.County) {
           return el;
@@ -40,7 +40,7 @@
       });
       createCard(newData);
     });
-    contentList.addEventListener('click', function(e) {
+    contentList.addEventListener('click', function (e) {
       //點中星星icon（即svg 跟 path)
       if (e.target.nodeName === 'svg') {
         let zone = e.target.parentNode.parentNode.children[1].children[1].textContent;
@@ -55,7 +55,7 @@
       }
     });
     let attentionList = document.querySelector('#attentionList');
-    attentionList.addEventListener('click', function(e) {
+    attentionList.addEventListener('click', function (e) {
       if (e.target.nodeName === 'svg') {
         let zone = e.target.parentNode.parentNode.children[1].children[1].textContent;
         deleteAttention(zone);
@@ -73,7 +73,7 @@
       if (!attentionCityZone.length) {
         attentionCityZone.push(zone);
       } else {
-        let isRepeat = function(el) {
+        let isRepeat = function (el) {
           return el === zone;
         };
         let check = attentionCityZone.some(isRepeat);
@@ -83,46 +83,32 @@
           attentionCityZone.push(zone);
         }
       }
-      res.forEach(data => {
+      res.filter(data => {
         if (data.SiteName === zone) {
-          if (!attentionCityData.length) {
-            attentionCityData.push(data);
-          } else {
-            let isRepeat = function(el) {
-              return el.SiteName === zone;
-            };
-            let check = attentionCityData.some(isRepeat);
-            if (check) {
-              return;
-            } else {
-              attentionCityData.push(data);
-            }
-          }
+          return attentionCityData.push(data);
         }
       });
-
-      createAttention(attentionCityData);
       let zoneStore = JSON.stringify(attentionCityZone);
-      let store = JSON.stringify(attentionCityData);
-      localStorage.setItem('attentionData', store);
       localStorage.setItem('zone', zoneStore);
+      createAttention(attentionCityData);
+      console.log(attentionCityData);
     }
     function deleteAttention(zone) {
+      console.log(zone);
       attentionCityZone.forEach((el, index) => {
         if (el === zone) {
           attentionCityZone.splice(index, 1);
         }
       });
+      console.log(attentionCityZone);
       attentionCityData.forEach((data, index) => {
         if (data.SiteName === zone) {
           attentionCityData.splice(index, 1);
         }
       });
-      createAttention(attentionCityData);
       let zoneStore = JSON.stringify(attentionCityZone);
-      let store = JSON.stringify(attentionCityData);
-      localStorage.setItem('attentionData', store);
       localStorage.setItem('zone', zoneStore);
+      createAttention(attentionCityData);
     }
     function createAttention(storageData) {
       let attentionList = document.querySelector('#attentionList');
@@ -134,7 +120,7 @@
         <span class="star-icon"><i class="fas fa-star"></i></span>
         <div class="location" ><span class="city">${attentionData[i].County}</span> - <span class="zone">${
           attentionData[i].SiteName
-        }</span></div>
+          }</span></div>
         <ul class="info">
           <li>AQI 指數: <span class="AQI">${attentionData[i].AQI}</span></li>
           <li>PM2.5: ${attentionData[i]['PM2.5']}</li>
@@ -154,7 +140,7 @@
             <span class="star-icon"><i class="far fa-star"></i></span>
             <div class="location" ><span class="city">${data[i].County}</span> - <span class="zone">${
           data[i].SiteName
-        }</span></div>
+          }</span></div>
             <ul class="info">
               <li>AQI 指數: <span class="AQI">${data[i].AQI}</span></li>
               <li>PM2.5: ${data[i]['PM2.5']}</li>
@@ -165,7 +151,6 @@
       }
       contentList.innerHTML = newCard;
       statusColor();
-      // console.log(data);
     }
   }
   function getCity(res) {
@@ -205,15 +190,7 @@
         location.style.backgroundColor = '#7e0023';
         location.style.color = 'white';
       }
-      //
     }
-    // let aqi = Number(data[i].AQI);
-    // if (aqi < 50) {
-    //   color = '#00e400';
-    // } else if (aqi < 100) {
-    //   color = '#ffff00';
-    // } else if (aqi < 150) {
-    //   color = '#ff7e00';
-    // }
+
   }
 })();
